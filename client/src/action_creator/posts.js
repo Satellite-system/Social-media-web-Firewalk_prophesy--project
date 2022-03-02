@@ -1,4 +1,4 @@
-import * as api from '../api';
+import * as api from '../api/index';
 
 
 // IF below fxn had been sync/didn't needed time to complete we must have used it as below:
@@ -33,6 +33,36 @@ export const createPost = (post) => async (dispatch) =>{
         const {data} = await api.createPosts(post);
 
         dispatch({type: 'CREATE', payload: data});
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const updatePost = (id, post) => async (dispatch) => {
+    try {
+        const {data} = await api.updatedPost(id, post); 
+
+        dispatch({type: 'UPDATE',payload: data});
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const likePost = (id) => async (dispatch) => {
+    try {
+        const {data} = await api.likePost(id);
+
+        dispatch({type:'LIKE',payload: data});
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const deletePost = (id) => async (dispatch) => {
+    try {
+        await api.deletePost(id);
+
+        dispatch({type:'DELETE', payload: id});
     } catch (error) {
         console.log(error);
     }

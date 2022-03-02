@@ -1,4 +1,4 @@
-const { default: mongoose } = require('mongoose');
+const { mongoose } = require('mongoose');
 const PostMessage = require('../models/postMessage.js');
 
 exports.getPosts = async (req, res)=>{
@@ -23,14 +23,38 @@ exports.createPost = async (req, res)=>{
 
 }
 
+exports.deletePost = async (req, res)=>{
+    const {id:_id} = req.params;
+
+    if(!mongoose.Types.ObjectId.isValid(_id)){
+        return res.status(404).send("Something went Wrong ☹️");
+    }
+    
+    await PostMessage.findByIdAndRemove(_id);
+    res.json({success: "Post Deleted Successfully"});
+}
+
+
 exports.updatePost = async (req, res)=>{
     const{id: _id} = req.params;
     const post = req.body;
 
     if(!mongoose.Types.ObjectId.isValid(_id)){
-        return res.status(404).send('Something went Wrong ☹️')
+        return res.status(404).send('Something went Wrong ☹️');
     }
 
     const updatedPost = await PostMessage.findByIdAndUpdate(_id,post,{new:true});
     return res.json(updatedPost);
+}
+
+exports.likePost = async (req,res)=> {
+    const {id:_id} = req.params;
+
+    if(!mongoose.Types.ObjectId.isValid(_id)){
+        return res.status(404).send('Something went Wrong ☹️');
+    }
+
+    const post = await PostMessage.findById(_id);
+    const updatedPost = await PostMessage.findByIdAndUpdate(_id,{likeCount:post.likeCount + 1},{new:true});
+    res.json(updatedPost);
 }
