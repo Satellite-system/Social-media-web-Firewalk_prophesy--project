@@ -1,5 +1,5 @@
-import * as api from '../api/index';
-
+import {FETCH_ALL, DELETE, UPDATE, LIKE, CREATE } from '../constants/actionTypes'
+import * as api from "../api/index";
 
 // IF below fxn had been sync/didn't needed time to complete we must have used it as below:
 /*
@@ -17,53 +17,52 @@ import * as api from '../api/index';
 
 */
 //  ActionCrators payload is set of data
-export const getPosts = ()=> async (dispatch)=>{
-    
-    try {
-        const {data} = await api.fetchPosts();
-       
-        dispatch({type: 'FETCH_ALL', payload: data});
-    } catch (error) {
-        console.log(error.message);
-    }
-}
+export const getPosts = () => async (dispatch) => {
+  try {
+    const { data } = await api.fetchPosts();
 
-export const createPost = (post) => async (dispatch) =>{
-    try {
-        const {data} = await api.createPosts(post);
+    dispatch({ type: FETCH_ALL, payload: data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
-        dispatch({type: 'CREATE', payload: data});
-    } catch (error) {
-        console.log(error);
-    }
-}
+export const createPost = (post) => async (dispatch) => {
+  try {
+    const { data } = await api.createPosts(post);
+
+    dispatch({ type: CREATE, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const updatePost = (id, post) => async (dispatch) => {
-    try {
-        const {data} = await api.updatedPost(id, post); 
+  try {
+    const { data } = await api.updatedPost(id, post);
 
-        dispatch({type: 'UPDATE',payload: data});
-    } catch (error) {
-        console.log(error);
-    }
-}
+    dispatch({ type: UPDATE, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const likePost = (id) => async (dispatch) => {
-    try {
-        const {data} = await api.likePost(id);
+  try {
+    const { data } = await api.likePost(id);
 
-        dispatch({type:'LIKE',payload: data});
-    } catch (error) {
-        console.log(error);
-    }
+    dispatch({ type: LIKE, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const deletePost = (id) => async (dispatch) => {
-    try {
-        await api.deletePost(id);
+  try {
+    await api.deletePost(id);
 
-        dispatch({type:'DELETE', payload: id});
-    } catch (error) {
-        console.log(error);
-    }
-}
+    dispatch({ type: DELETE, payload: id });
+  } catch (error) {
+    console.log(error);
+  }
+};
