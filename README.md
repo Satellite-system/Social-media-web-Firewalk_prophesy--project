@@ -1,3 +1,15 @@
+This Project entitiled as Firewalk-Prophesy, it is a social media app in which a user can post, edit, delete and like a Post.
+
+
+![screenshot-firewalk-prophesy netlify app-2022 03 03-12_17_34](https://user-images.githubusercontent.com/67074308/156512160-e0bcd564-aaa8-490f-832e-9846a10b0d0a.png)
+
+
+Above Project has been placed at, https://firewalk-prophesy.netlify.app/
+visit the site and enjoy....
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
